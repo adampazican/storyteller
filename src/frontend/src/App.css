@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    width: 100%;
+    height: 75px;
+    background-color: #2196F3;
+    color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+#header h1 {
+    line-height: 75px;
+}
+
+#landing-area {
+    width: 100%;
+    height: 75vh;
+    background-color: #2196F3;
+    display: flex;
+    justify-content: center;
+}
+
+#landing-area h2 {
+    line-height: 75vh;
+    color: #FFFFFF;
+}
+
+#latest-blogs{
+  display: flex;
+  justify-content: space-between;
+}
+
+#blog-posts{
+  width: 70vw;
+}
+
+#popular-posts{
+  width: 20vw;
+}
+
+.App {
+    height: 2000px;
+}
