@@ -1,14 +1,9 @@
 import React from 'react';
 import Header from "../components/Header";
 import useFetchData from "../hooks/useFetchData";
+import {Article} from "../types";
 
-type Article = {
-    id: Number
-    userId: Number
-    date: Date
-    title: String
-    body: String
-}
+
 
 const LandingArea = () =>
     <div id="landing-area">
@@ -37,7 +32,7 @@ const MainContentArea = () =>
 ;
 
 function BlogPosts() {
-    const posts: Article[] = useFetchData('/api/v1/');
+    const posts: Article[] = useFetchData('/');
 
     return (
         <ul>

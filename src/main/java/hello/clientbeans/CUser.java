@@ -17,8 +17,7 @@ public class CUser {
 	private String username;
 	@NotBlank
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	@Size(min = 8, max = 28, message = "Required number of characters is between 8 and 28")
+	@Size(min = 5, max = 28, message = "Required number of characters is between 8 and 28")
 	private String password;
-	@NotNull
 	private CImage image;
 }
