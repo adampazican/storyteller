@@ -33,7 +33,7 @@ public class UserService {
 	private final LoggedUser loggedUser;
 	private final UserMapper userMapper;
 
-	public String authenticateUser(final CUser user) {
+	public CUser authenticateUser(final CUser user) {
 		val username = user.getUsername();
 		val password = user.getPassword();
 
@@ -53,7 +53,8 @@ public class UserService {
 			throw new ForbiddenException("Wrong password");
 		}
 
-		return tokenService.createJTW("token", "java", username);
+		user.setToken(tokenService.createJTW("token", "java", username));
+		return user;
 	}
 
 	public String registerUser(final CUser user) {

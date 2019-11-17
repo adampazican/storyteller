@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Header from "../components/Header";
 import useFetchData from "../hooks/useFetchData";
-import {Article} from "../types";
+import {Article, LoggedUser} from "../types";
+import {UserContext} from "../context/UserContext";
 
 
 
@@ -33,7 +34,6 @@ const MainContentArea = () =>
 
 function BlogPosts() {
     const posts: Article[] = useFetchData('/');
-
     return (
         <ul>
             {posts.length !== 0 ? posts.map((post: any) =>

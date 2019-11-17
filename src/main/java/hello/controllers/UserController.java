@@ -17,7 +17,7 @@ public class UserController {
 
 	@PostMapping("/login")
 	@ResponseStatus(HttpStatus.OK)
-	public String authenticate(@Valid @RequestBody CUser user) {
+	public CUser authenticate(@Valid @RequestBody CUser user) {
 		return userService.authenticateUser(user);
 	}
 

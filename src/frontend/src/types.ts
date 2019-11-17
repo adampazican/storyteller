@@ -1,12 +1,19 @@
+export type LoggedUser = {
+    user: User
+    setUser: any
+}
+
 export type User = {
-    username: String
-    password: String
+    id: number
+    username: string
+    password: string
+    token: string
 }
 
 export type Article = {
     id: Number
     userId: Number
     date: Date
-    title: String
-    body: String
+    title: string
+    body: string
 }
