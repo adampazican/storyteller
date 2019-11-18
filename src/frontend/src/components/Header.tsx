@@ -9,12 +9,15 @@ export default function () {
             <h1>
                 <Link to="/">Story-teller</Link>
             </h1>
-            {Object.keys(user).length == 0 &&
+            {Object.keys(user).length === 0?
                 <div>
                     <Link to="/register">Register</Link>
                     <Link to="/login">Login</Link>
+                </div> :
+                <div>
+                    <Link to="/create-article">Novy pribeh</Link>
+                    <Link to="/my-stories">Moje pribehy</Link>
                 </div>
-                //TODO: else show me logged links 
             }
         </header>
     );

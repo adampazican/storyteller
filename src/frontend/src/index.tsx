@@ -3,11 +3,12 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 
 import './index.css';
+import {UserProvider} from "./context/UserContext";
 
 
 ReactDOM.render(
-    <div>
+    <UserProvider>
         <App />
-    </div>,
+    </UserProvider>,
     document.getElementById('root') as HTMLElement
 );

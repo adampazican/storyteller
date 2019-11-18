@@ -32,11 +32,6 @@ public class ArticleService {
 	}
 
 	public CArticle createArticle(final CArticle article) {
-
-		if(article.getUserId() != loggedInUser.getUser().getId()) {
-			throw new ForbiddenException();
-		}
-
 		article.setDate(Date.from(Instant.now()));
 		article.setUserId(loggedInUser.getUser().getId());
 		return articleMapper.mapToC(articleRepository.save(articleMapper.mapFromC(article)));

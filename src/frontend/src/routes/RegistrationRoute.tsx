@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import useForm from "../hooks/useForm";
 
 export default () => {
-    const {handleSubmit, handleChange, errorMessage} = useForm("/register");
+    const {handleSubmit, handleChange, errorMessage} = useForm("/register", {});
     return (
         <div>
             <Header/>
