@@ -17,7 +17,8 @@ export default () => {
             <form onSubmit={handleSubmit}
                   style={{marginTop: "75px" /*TODO: clean up into separate css file for this component*/}}>
                 {errorMessage !== "" && <p className="error">{errorMessage}</p>}
-                <input type="text" name="username" placeholder="username" onChange={handleChange}/>
+                <input type="text" name="username" placeholder="username" onChange={handleChange} autoFocus/> {//TODO: make every first input autofocus
+                      }
                 <input type="password" name="password" placeholder="password" onChange={handleChange}/>
                 <input type="submit" value="Submit"/>
             </form>

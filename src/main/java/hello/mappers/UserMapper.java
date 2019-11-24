@@ -9,7 +9,8 @@ import hello.clientbeans.CUser;
 @Mapper(withIoC = IoC.SPRING)
 public interface UserMapper {
 	@Maps(withIgnoreFields = {
-			"hello.beans.Image.filename"
+			"hello.beans.Image.filename",
+			"token"
 	})
 	CUser mapToC(User user);
 }

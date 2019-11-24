@@ -19,7 +19,15 @@ public class ArticleController {
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	public List<CArticle> index() {
-		return articleService.getArticleList();
+		List<CArticle> result = articleService.getArticleList();
+		return result;
+	}
+
+	@PostMapping("/my")
+	@ResponseStatus(HttpStatus.OK)
+	public List<CArticle> my() {
+		List<CArticle> result = articleService.getMyArticleList();
+		return result;
 	}
 
 	@PostMapping("/article")

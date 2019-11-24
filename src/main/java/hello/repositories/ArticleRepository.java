@@ -45,4 +45,9 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
 			" FROM article" +
 			" WHERE active = true")
 	List<Article> getAllArticles();
+
+	@Query("SELECT id, user_id, date, title, body" +
+			" FROM article" +
+			" WHERE user_id = :userId")
+	List<Article> getMyArticles(int userId);
 }

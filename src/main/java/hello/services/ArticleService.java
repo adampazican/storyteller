@@ -31,6 +31,10 @@ public class ArticleService {
 		return articleMapper.mapToC(articleRepository.getAllArticles());
 	}
 
+	public List<CArticle> getMyArticleList() {
+		return articleMapper.mapToC(articleRepository.getMyArticles(loggedInUser.getUser().getId()));
+	}
+
 	public CArticle createArticle(final CArticle article) {
 		article.setDate(Date.from(Instant.now()));
 		article.setUserId(loggedInUser.getUser().getId());

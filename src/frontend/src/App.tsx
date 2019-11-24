@@ -6,12 +6,12 @@ import RegistrationRoute from "./routes/RegistrationRoute";
 import LoginRoute from "./routes/LoginRoute";
 import {UserContext} from "./context/UserContext";
 import CreateArticleRoute from "./routes/CreateArticleRoute";
+import MyStoriesRoute from "./routes/MyStoriesRoute";
 
 //TODO IMPORTANT: do cookies or something so that refresh or automatic url doesnt unlog you
 
 export default function App() {
     const [user, setUser] = useContext(UserContext);
-    console.log(user);
     return (
         <div className="App">
             <Router>
@@ -21,6 +21,9 @@ export default function App() {
                     </Route>
                     <Route path="/register">
                         <RegistrationRoute/>
+                    </Route>
+                    <Route path="/my-stories">
+                        <MyStoriesRoute/>
                     </Route>
                     <Route path="/login">
                         <LoginRoute/>
