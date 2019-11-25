@@ -30,17 +30,19 @@ export function MyArticles() {
     return (
         <ul>
             {posts.length !== 0 ? posts.map((post: any, index: number) =>
-                <BlogPost key={index} title={post.title} body={post.body} date={post.date}/>
+                <BlogPost key={index} title={post.title} body={post.body} date={post.date} active={post.active}/>
             ) : "Spinner"}
         </ul>
     );
 }
 
-const BlogPost = ({title, body, date}: any) =>
-    <li>
+const MyBlogPost = ({title, body, date, active}: any) =>
+    <li> //TODO: onclick shnow moar
         <h3>{title}</h3>
         <p>{body}</p>
         <p>Autor ToDO {/*TODO:*/}</p>
         <p>{date}</p>
+        {!active && <button>Post</button> /* TODO: makes active, sets date, ....*/}
+        <button>Delete</button>
     </li>
 ;
