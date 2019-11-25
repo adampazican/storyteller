@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {User} from "../types";
 
-const UserContext = React.createContext([{}, () => {}]);
+const UserContext = React.createContext<[User, any]>([{} as User, () => {}]);
 
 const UserProvider = (props: any) => {
     const [state, setState] = useState({} as User);

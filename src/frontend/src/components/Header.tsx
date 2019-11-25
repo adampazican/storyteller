@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
 
 export default function () {
-    const [user, setUser] = useContext(UserContext);
+    const [user] = useContext(UserContext);
     return (
         <header id="header">
             <h1>

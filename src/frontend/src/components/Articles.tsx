@@ -17,14 +17,14 @@ export function RecentArticles() {
 
 export function MyArticles() {
     const history = useHistory();
-    const [user, setUser] = useContext(UserContext);
-    if(!user) {
+    const [user] = useContext<[User, any]>(UserContext);
+    if(Object.keys(user).length === 0) {
         history.push("/");
     }
-    const posts: Article[] = useFetchData('/my', {
-        method: HttpMethod.POST,
+    const posts: Article[] = useFetchData(`/user/${user.id}/article`, {
+        method: HttpMethod.GET,
         headers: {
-            "x-access-token": (user as User).token
+            "x-access-token": user.token
         }
     });
     return (

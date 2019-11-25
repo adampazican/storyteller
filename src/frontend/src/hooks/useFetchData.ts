@@ -11,13 +11,13 @@ export default function (path: String, init?: RequestInit) {
 
     useEffect(() => {
         (async function () {
-            const data: Response = await fetch(`/api/v1${path}`, init);
-            if (data.ok) {
-                const newPosts = await data.json();
-                setFetchedData(newPosts);
+            const response: Response = await fetch(`/api/v1${path}`, init);
+            if (response.ok) {
+                const data = await response.json();
+                setFetchedData(data);
             }
         })();
-    }, []);
+    }, [init, path]);
 
     return fetchedData;
 }

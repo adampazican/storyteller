@@ -7,11 +7,24 @@ import LoginRoute from "./routes/LoginRoute";
 import {UserContext} from "./context/UserContext";
 import CreateArticleRoute from "./routes/CreateArticleRoute";
 import MyStoriesRoute from "./routes/MyStoriesRoute";
+import {HttpMethod} from "./hooks/useFetchData";
 
 //TODO IMPORTANT: do cookies or something so that refresh or automatic url doesnt unlog you
 
 export default function App() {
     const [user, setUser] = useContext(UserContext);
+    if(Object.keys(user).length === 0) {
+        fetch("/api/v1/login", {
+            method: HttpMethod.POST,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "username": "admin",
+                "password": "admin"
+            })
+        }).then(data => data.json()).then(user => setUser(user));//TODO: hack
+    }
     return (
         <div className="App">
             <Router>

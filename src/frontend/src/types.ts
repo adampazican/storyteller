@@ -1,8 +1,3 @@
-export type LoggedUser = {
-    user: User
-    setUser: any
-}
-
 export type User = {
     id: number
     username: string
@@ -16,4 +11,5 @@ export type Article = {
     date: Date
     title: string
     body: string
+    active: boolean
 }

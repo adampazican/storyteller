@@ -2,9 +2,7 @@ import {useHistory} from "react-router";
 import {FormEvent, useState} from "react";
 import {HttpMethod} from "./useFetchData";
 
-//TODO: make a new path which gets all the articles for user even the non active ones,
 //TODO: second route will take id of article and make it active
-
 export default function(path: string, { onSuccessCallback, token }: { onSuccessCallback?: any, token?: string }) {
     const history = useHistory();
     const [formFields, setFormFields] = useState({});
