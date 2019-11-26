@@ -18,7 +18,8 @@ public class UserController {
 	@PostMapping("/login")
 	@ResponseStatus(HttpStatus.OK)
 	public CUser authenticate(@Valid @RequestBody CUser user) {
-		return userService.authenticateUser(user);
+		CUser result = userService.authenticateUser(user);
+		return result;
 	}
 
 	@PostMapping("/register")

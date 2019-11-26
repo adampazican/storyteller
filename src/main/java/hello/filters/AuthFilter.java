@@ -28,6 +28,7 @@ public class AuthFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		val whitelist = Arrays.asList(
 			"GET:^/api/v1/$",
+			"GET:^/api/v1/top-articles$",
 			"GET:^/api/v1/article$",
 			"POST:^/api/v1/register$",
 			"POST:^/api/v1/login$",

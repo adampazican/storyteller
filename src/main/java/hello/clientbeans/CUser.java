@@ -20,5 +20,6 @@ public class CUser {
 	@Size(min = 5, max = 28, message = "Required number of characters is between 8 and 28")
 	private String password;
 	private CImage image;
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private String token;
 }

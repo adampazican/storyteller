@@ -28,11 +28,7 @@ public class ArticleService {
 	private final UserMapper userMapper;
 
 	public List<CArticle> getArticleList() {
-		return articleMapper.mapToC(articleRepository.getAllArticles());
-	}
-
-	public List<CArticle> getMyArticleList() {
-		return articleMapper.mapToC(articleRepository.getMyArticles(loggedInUser.getUser().getId()));
+		return articleMapper.mapToC(articleRepository.getArticlesPaginated(0, 5));
 	}
 
 	public CArticle createArticle(final CArticle article) {
@@ -94,5 +90,9 @@ public class ArticleService {
 
 	public List<CArticle> getArticlesByUserIdPaginated(final int id, final int offset, final int size) {
 		return articleMapper.mapToC(articleRepository.getArticlesByUserIdPaginated(id, offset, size));
+	}
+
+	public List<CArticle> getTopArticles() {
+		return articleMapper.mapToC(articleRepository.getMostVisitedArticles());
 	}
 }

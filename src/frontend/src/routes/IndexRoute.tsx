@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from "../components/Header";
-import {RecentArticles} from "../components/Articles";
+import {RecentArticles, TopArticles} from "../components/Articles";
 import LandingArea from "../components/LandingArea";
 
 const MainContentArea = () =>
@@ -9,13 +9,7 @@ const MainContentArea = () =>
             <RecentArticles/>
         </div>
         <div id="popular-posts">
-            <ol>
-                <li>
-                    <h3>Nazov</h3>
-                    <p>Autor</p>
-                    <p>Datum</p>
-                </li>
-            </ol>
+            <TopArticles/>
             <footer>
                 Copyright &copy; 2019 Storyteller. All rights reserved;
             </footer>

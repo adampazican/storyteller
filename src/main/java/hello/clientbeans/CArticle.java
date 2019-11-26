@@ -22,6 +22,8 @@ public class CArticle {
 	@NotBlank
 	@Size(min = 20, max = 20000, message = "Required number of characters is between 8 and 28")
 	private String body;
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	private boolean active;
 	//TODO: required category param
 	//TODO: delete default value from databaze of category
 }

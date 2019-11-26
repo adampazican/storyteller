@@ -9,10 +9,11 @@ import java.util.Date;
 public class Article {
 	@Id
 	private int id;
-	private int userId; // TODO: change to user
+	private int userId; //TODO IMPORTANT: change to user
 	private Date date;
 	private String title;
 	private String body;
-	//TODO: add new fields(active, category_id, visitor_count)
+	private boolean active;
+	//TODO: add new fields(category_id)
 	//TODO: image?
 }

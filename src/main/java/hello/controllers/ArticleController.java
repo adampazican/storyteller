@@ -23,10 +23,10 @@ public class ArticleController {
 		return result;
 	}
 
-	@PostMapping("/my")
+	@GetMapping("/top-articles")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CArticle> my() {
-		List<CArticle> result = articleService.getMyArticleList();
+	public List<CArticle> getTopArticles() {
+		List<CArticle> result = articleService.getTopArticles();
 		return result;
 	}
 
@@ -64,6 +64,7 @@ public class ArticleController {
 	@GetMapping("/user/{id}/article")
 	@ResponseStatus(HttpStatus.OK)
 	public List<CArticle> getArticleByUserIdPaginated(@PathVariable int id, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size) {
-		return articleService.getArticlesByUserIdPaginated(id, (page-1) * size, size);
+		List<CArticle> result = articleService.getArticlesByUserIdPaginated(id, (page-1) * size, size);
+		return result;
 	}
 }

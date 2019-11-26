@@ -15,6 +15,17 @@ export function RecentArticles() {
     );
 }
 
+export function TopArticles() {
+    const posts: Article[] = useFetchData('/top-articles');
+    return (
+        <ol>
+            {posts.length !== 0 ? posts.map((post: any, index: number) =>
+                <BlogPost key={index} title={post.title} body={post.body} date={post.date}/>
+            ) : "Spinner"}
+        </ol>
+    );
+}
+
 export function MyArticles() {
     const history = useHistory();
     const [user] = useContext<[User, any]>(UserContext);
@@ -30,11 +41,20 @@ export function MyArticles() {
     return (
         <ul>
             {posts.length !== 0 ? posts.map((post: any, index: number) =>
-                <BlogPost key={index} title={post.title} body={post.body} date={post.date} active={post.active}/>
+                <MyBlogPost key={index} title={post.title} body={post.body} date={post.date} active={post.active}/>
             ) : "Spinner"}
         </ul>
     );
 }
+
+const BlogPost = ({title, body, date}: any) =>
+    <li>
+        <h3>{title}</h3>
+        <p>{body}</p>
+        <p>Autor ToDO {/*TODO:*/}</p>
+        <p>{date}</p>
+    </li>
+;
 
 const MyBlogPost = ({title, body, date, active}: any) =>
     <li> //TODO: onclick shnow moar
