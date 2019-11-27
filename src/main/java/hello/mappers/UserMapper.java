@@ -10,7 +10,7 @@ import hello.clientbeans.CUser;
 public interface UserMapper {
 	@Maps(withIgnoreFields = {
 			"hello.beans.Image.filename",
-			"token"
+			"token",
 	})
 	CUser mapToC(User user);
 }

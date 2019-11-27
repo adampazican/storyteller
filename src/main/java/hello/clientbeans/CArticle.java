@@ -1,5 +1,6 @@
 package hello.clientbeans;
 
+import hello.beans.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -13,7 +14,7 @@ public class CArticle {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private int id;
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	private int userId; //TODO: should return whole User, take userId so maybe not readonly
+	private User user;
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Date date;
 	@NotBlank

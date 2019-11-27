@@ -2,6 +2,7 @@ package hello.services;
 
 import hello.beans.Article;
 import hello.beans.LoggedUser;
+import hello.beans.User;
 import hello.clientbeans.CArticle;
 import hello.clientbeans.CArticleDetail;
 import hello.exceptions.ForbiddenException;
@@ -33,14 +34,14 @@ public class ArticleService {
 
 	public CArticle createArticle(final CArticle article) {
 		article.setDate(Date.from(Instant.now()));
-		article.setUserId(loggedInUser.getUser().getId());
+		article.getUser().setId(loggedInUser.getUser().getId());
 		return articleMapper.mapToC(articleRepository.save(articleMapper.mapFromC(article)));
 	}
 
 	public CArticle updateArticle(final CArticle newArticle) {
 		var article = getArticle(newArticle.getId());
 
-		if(article.getUserId() != loggedInUser.getUser().getId()) {
+		if(article.getUser().getId() != loggedInUser.getUser().getId()) {
 			throw new ForbiddenException();
 		}
 
@@ -51,13 +52,13 @@ public class ArticleService {
 	}
 
 	public CArticleDetail getArticleDetail(final int id) {
-		val article = articleRepository.getArticle(id);
+		Article article = articleRepository.getArticle(id);
 
 		if(article == null) {
 			throw new NotFoundException(String.format("Article with id %d not found", id));
 		}
 
-		val author = userService.getUser(article.getUserId());
+		User author = userService.getUser(article.getUser().getId());
 
 		return new CArticleDetail(article.getId(), article.getDate(), article.getTitle(), article.getBody(), userMapper.mapToC(author));
 	}
@@ -75,7 +76,7 @@ public class ArticleService {
 	public CArticle softRemoveArticle(final int id) {
 		val article = getArticle(id);
 
-		if(article.getUserId() != loggedInUser.getUser().getId()) {
+		if(article.getUser().getId() != loggedInUser.getUser().getId()) {
 			throw new ForbiddenException();
 		}
 
