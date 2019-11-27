@@ -38,7 +38,7 @@ public class ArticleController {
 
 	@GetMapping("/article/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public CArticleDetail getArticle(@PathVariable int id) {
+	public CArticle getArticle(@PathVariable int id) {
 		return articleService.getArticleDetail(id);
 	}
 

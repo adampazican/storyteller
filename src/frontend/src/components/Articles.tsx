@@ -2,25 +2,40 @@ import {Article, User} from "../types";
 import useFetchData, {HttpMethod} from "../hooks/useFetchData";
 import React, {useContext} from "react";
 import {UserContext} from "../context/UserContext";
-import {useHistory} from "react-router";
+import {useHistory, useParams} from "react-router";
+import {Link} from "react-router-dom";
+
+export function ArticleDetail(props: any) {
+    const {id} = useParams();
+    const post: Article = useFetchData(`/article/${id}`, null);
+    return (
+        <div className="ArticleDetail">
+            {post == null ? "Spinner" : <BlogPostDetail {...post}/>}
+        </div>
+    );
+}
 
 export function RecentArticles() {
-    const posts: Article[] = useFetchData('/');
+    const posts: Article[] = useFetchData('/', []);
     return (
         <ul>
-            {posts.length !== 0 ? posts.map((post: any, index: number) =>
-                <BlogPost key={index} title={post.title} body={post.body} date={post.date}/>
+            {posts.length !== 0 ? posts.map((post: Article, index: number) =>
+                <li key={index}>
+                    <BlogPost {...post}/>
+                </li>
             ) : "Spinner"}
         </ul>
     );
 }
 
 export function TopArticles() {
-    const posts: Article[] = useFetchData('/top-articles');
+    const posts: Article[] = useFetchData('/top-articles', []);
     return (
         <ol>
-            {posts.length !== 0 ? posts.map((post: any, index: number) =>
-                <BlogPost key={index} title={post.title} body={post.body} date={post.date}/>
+            {posts.length !== 0 ? posts.map((post: Article, index: number) =>
+                <li key={index}>
+                    <BlogPost {...post}/>
+                </li>
             ) : "Spinner"}
         </ol>
     );
@@ -32,7 +47,7 @@ export function MyArticles() {
     if(Object.keys(user).length === 0) {
         history.push("/");
     }
-    const posts: Article[] = useFetchData(`/user/${user.id}/article`, {
+    const posts: Article[] = useFetchData(`/user/${user.id}/article`, [], {
         method: HttpMethod.GET,
         headers: {
             "x-access-token": user.token
@@ -41,28 +56,37 @@ export function MyArticles() {
     return (
         <ul>
             {posts.length !== 0 ? posts.map((post: any, index: number) =>
-                <MyBlogPost key={index} title={post.title} body={post.body} date={post.date} active={post.active}/>
+                <MyBlogPost key={index} {...post}/>
             ) : "Spinner"}
         </ul>
     );
 }
 
-const BlogPost = ({title, body, date}: any) =>
-    <li>
-        <h3>{title}</h3>
-        <p>{body}</p>
-        <p>Autor ToDO {/*TODO:*/}</p>
+const BlogPostDetail = ({id, title, body, date, user, active}: Article) =>
+    <div>
+        <h3>{title}></h3>
+        <p>{user.username}</p>
         <p>{date}</p>
-    </li>
+        <p>{body}</p>
+    </div>
 ;
 
-const MyBlogPost = ({title, body, date, active}: any) =>
-    <li> //TODO: onclick shnow moar
-        <h3>{title}</h3>
+const BlogPost = ({id, title, body, date, user, active}: Article) =>
+    <div>
+        <h3><Link to={`/article/${id}`}>{title}</Link></h3>
         <p>{body}</p>
-        <p>Autor ToDO {/*TODO:*/}</p>
+        <p>{user.username}</p>
+        <p>{date}</p>
+    </div>
+;
+
+const MyBlogPost = ({id, title, body, date, active, user}: Article) =>
+    <div> //TODO: onclick shnow moar
+        <h3><Link to={`/article/${id}`}>{title}</Link></h3>
+        <p>{body}</p>
+        <p>{user.username}</p>
         <p>{date}</p>
         {!active && <button>Post</button> /* TODO: makes active, sets date, ....*/}
         <button>Delete</button>
-    </li>
+    </div>
 ;

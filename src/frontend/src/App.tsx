@@ -7,6 +7,7 @@ import LoginRoute from "./routes/LoginRoute";
 import {UserContext} from "./context/UserContext";
 import CreateArticleRoute from "./routes/CreateArticleRoute";
 import MyStoriesRoute from "./routes/MyStoriesRoute";
+import ArticleDetailRoute from "./routes/ArticleDetailRoute";
 import {HttpMethod} from "./hooks/useFetchData";
 
 //TODO IMPORTANT: do cookies or something so that refresh or automatic url doesnt unlog you
@@ -41,6 +42,7 @@ export default function App() {
                     <Route path="/login">
                         <LoginRoute/>
                     </Route>
+                    <Route path="/article/:id" component={ArticleDetailRoute}/>
                     <Route path="/create-article">
                         {Object.keys(user).length !== 0 ?
                             <CreateArticleRoute/> :

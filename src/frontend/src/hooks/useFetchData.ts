@@ -6,8 +6,8 @@ export enum HttpMethod {
     DELETE = "DELETE",
 }
 
-export default function (path: String, init?: RequestInit) {
-    const [fetchedData, setFetchedData] = useState([]);
+export default function (path: String, defaultState:any, init?: RequestInit) {
+    const [fetchedData, setFetchedData] = useState(defaultState);
 
     useEffect(() => {
         let isCancelled = false;

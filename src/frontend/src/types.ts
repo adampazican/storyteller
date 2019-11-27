@@ -7,7 +7,7 @@ export type User = {
 
 export type Article = {
     id: Number
-    userId: Number
+    user: User
     date: Date
     title: string
     body: string

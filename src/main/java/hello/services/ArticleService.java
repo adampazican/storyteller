@@ -51,16 +51,15 @@ public class ArticleService {
 		return articleMapper.mapToC(article);
 	}
 
-	public CArticleDetail getArticleDetail(final int id) {
-		Article article = articleRepository.getArticle(id);
+	public CArticle getArticleDetail(final int id) {
+		Article article = articleRepository.getArticle(id); //TODO: check if the right user requested it so post probably and yea
+		articleRepository.increaseVisitorCount(id);
 
 		if(article == null) {
 			throw new NotFoundException(String.format("Article with id %d not found", id));
 		}
 
-		User author = userService.getUser(article.getUser().getId());
-
-		return new CArticleDetail(article.getId(), article.getDate(), article.getTitle(), article.getBody(), userMapper.mapToC(author));
+		return articleMapper.mapToC(article);
 	}
 
 	public Article getArticle(final int id) {

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @AllArgsConstructor
 @Data
-public class CArticleDetail {
+public class CArticleDetail { //TODO: remove from existence
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private int id;
 	@NotNull
