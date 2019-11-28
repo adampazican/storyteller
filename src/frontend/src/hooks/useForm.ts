@@ -11,7 +11,7 @@ export default function(path: string, { onSuccessCallback, token }: { onSuccessC
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const headers = { //TODO: find out type
+        const headers = {
             "Content-Type": "Application/json",
         };
 

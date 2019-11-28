@@ -34,8 +34,16 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
 	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, article.body, article.active\n" +
 			" FROM article" +
 			" JOIN \"user\" ON (article.user_id = \"user\".id)" +
-			" WHERE article.id = :id")
+			" WHERE article.id = :id" +
+			" AND article.active = true")
 	Article getArticle(int id);
+
+	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, article.body, article.active\n" +
+			" FROM article" +
+			" JOIN \"user\" ON (article.user_id = \"user\".id)" +
+			" WHERE article.id = :id" +
+			" AND article.user_id = :userId")
+	Article getUserArticle(int id, int userId);
 
 	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, substr(article.body, 30) as body, article.active\n" +
 			"FROM article\n" +

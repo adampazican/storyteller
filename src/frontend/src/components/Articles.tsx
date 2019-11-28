@@ -7,7 +7,18 @@ import {Link} from "react-router-dom";
 
 export function ArticleDetail(props: any) {
     const {id} = useParams();
-    const post: Article = useFetchData(`/article/${id}`, null);
+    const [user] = useContext<[User, any]>(UserContext);
+    
+    const fetchParams: RequestInit = {
+        method: HttpMethod.POST,
+        headers: {}
+    };
+    
+    if(Object.keys(user).length !== 0) {
+        //@ts-ignore
+        fetchParams.headers["x-access-token"] = user.token;
+    }
+    const post: Article = useFetchData(`/article/${id}`, null, fetchParams);
     return (
         <div className="ArticleDetail">
             {post == null ? "Spinner" : <BlogPostDetail {...post}/>}
@@ -81,7 +92,7 @@ const BlogPost = ({id, title, body, date, user, active}: Article) =>
 ;
 
 const MyBlogPost = ({id, title, body, date, active, user}: Article) =>
-    <div> //TODO: onclick shnow moar
+    <div>
         <h3><Link to={`/article/${id}`}>{title}</Link></h3>
         <p>{body}</p>
         <p>{user.username}</p>

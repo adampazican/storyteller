@@ -1,3 +1,4 @@
+import {useHistory} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 export enum HttpMethod {
@@ -8,21 +9,26 @@ export enum HttpMethod {
 
 export default function (path: String, defaultState:any, init?: RequestInit) {
     const [fetchedData, setFetchedData] = useState(defaultState);
+    const history = useHistory();
 
     useEffect(() => {
         let isCancelled = false;
         (async function () {
+            if(fetchedData !== defaultState) return;
             const response: Response = await fetch(`/api/v1${path}`, init);
             if (response.ok && !isCancelled) {
                 const data = await response.json();
                 setFetchedData(data);
+            }
+            else if(!response.ok) {
+                history.push("/");
             }
         })();
 
         return () => {
             isCancelled = true;
         }
-    }, [init, path]);
+    }, [init, path, defaultState, fetchedData, history]);
 
     return fetchedData;
 }

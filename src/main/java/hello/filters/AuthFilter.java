@@ -32,9 +32,12 @@ public class AuthFilter extends OncePerRequestFilter {
 			"GET:^/api/v1/article$",
 			"POST:^/api/v1/register$",
 			"POST:^/api/v1/login$",
-			"GET:^/api/v1/article/\\d+$",
 			"GET:^/api/v1/article/\\d+/comment$",
 			"GET:^/api/v1/user/\\d+/article$"
+		);
+
+		val optional = Arrays.asList(
+			"POST:^/api/v1/article/\\d+$"
 		);
 
 		if (checkPath(whitelist, request)) {
@@ -43,6 +46,11 @@ public class AuthFilter extends OncePerRequestFilter {
 		}
 
 		val authHeader = request.getHeader("x-access-token");
+		if(authHeader == null && checkPath(optional, request)){
+			filterChain.doFilter(request, response);
+			return; //TODO: make some refactorring hear
+		}
+
 		if(authHeader == null || authHeader.isEmpty()) {
 			response.sendError(400, "No token provided");
 			return;

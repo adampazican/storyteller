@@ -52,13 +52,18 @@ public class ArticleService {
 	}
 
 	public CArticle getArticleDetail(final int id) {
-		Article article = articleRepository.getArticle(id); //TODO: check if the right user requested it so post probably and yea
-		articleRepository.increaseVisitorCount(id);
+		Article article = articleRepository.getArticle(id);
 
-		if(article == null) {
-			throw new NotFoundException(String.format("Article with id %d not found", id));
-		}
+        if(article == null) {
+            if(loggedInUser.getUser() != null) {
+                article = articleRepository.getUserArticle(id, loggedInUser.getUser().getId());
+            }
+            else{
+                throw new NotFoundException(String.format("Article with id %d not found", id));
+            }
+        }
 
+        articleRepository.increaseVisitorCount(id);
 		return articleMapper.mapToC(article);
 	}
 
