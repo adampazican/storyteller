@@ -11,8 +11,7 @@ export default () => {
     return (
         <div>
             <Header/>
-            <form onSubmit={handleSubmit}
-                  style={{marginTop: "75px" /*TODO: clean up into separate css file for this component*/}}>
+            <form onSubmit={handleSubmit}>
                 {errorMessage !== "" && <p className="error">{errorMessage}</p>}
                 <input type="text" name="title" placeholder="Title" onChange={handleChange} autoFocus/>
                 <textarea name="body" placeholder="Write about your story" onChange={handleChange}/>

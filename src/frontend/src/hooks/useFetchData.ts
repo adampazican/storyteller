@@ -30,5 +30,5 @@ export default function (path: String, defaultState:any, init?: RequestInit) {
         }
     }, [init, path, defaultState, fetchedData, history]);
 
-    return fetchedData;
+    return [fetchedData, setFetchedData];
 }

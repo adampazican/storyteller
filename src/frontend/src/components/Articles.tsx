@@ -18,7 +18,7 @@ export function ArticleDetail(props: any) {
         //@ts-ignore
         fetchParams.headers["x-access-token"] = user.token;
     }
-    const post: Article = useFetchData(`/article/${id}`, null, fetchParams);
+    const [post] = useFetchData(`/article/${id}`, null, fetchParams);
     return (
         <div className="ArticleDetail">
             {post == null ? "Spinner" : <BlogPostDetail {...post}/>}
@@ -27,7 +27,7 @@ export function ArticleDetail(props: any) {
 }
 
 export function RecentArticles() {
-    const posts: Article[] = useFetchData('/', []);
+    const [posts] = useFetchData('/', []);
     return (
         <ul>
             {posts.length !== 0 ? posts.map((post: Article, index: number) =>
@@ -40,7 +40,7 @@ export function RecentArticles() {
 }
 
 export function TopArticles() {
-    const posts: Article[] = useFetchData('/top-articles', []);
+    const [posts] = useFetchData('/top-articles', []);
     return (
         <ol>
             {posts.length !== 0 ? posts.map((post: Article, index: number) =>
@@ -58,16 +58,37 @@ export function MyArticles() {
     if(Object.keys(user).length === 0) {
         history.push("/");
     }
-    const posts: Article[] = useFetchData(`/user/${user.id}/article`, [], {
+    const [posts, setPosts] = useFetchData(`/user/${user.id}/article`, [], {
         method: HttpMethod.GET,
         headers: {
             "x-access-token": user.token
         }
     });
+
+    const postMethod = async (id: number) => {
+        const response = await fetch(`/api/v1/article/${id}/post`, {
+            method: HttpMethod.POST,
+            headers: {
+                "x-access-token": user.token
+            }
+        });
+
+        if(response.ok) 
+        {
+            setPosts(posts.map((post: Article) => {
+                if(post.id === id) {
+                    post.active = true
+                }
+                return post;
+            }));
+        }
+
+    };
+
     return (
         <ul>
             {posts.length !== 0 ? posts.map((post: any, index: number) =>
-                <MyBlogPost key={index} {...post}/>
+                <MyBlogPost key={index} {...post} user={user} postMethod={postMethod} />
             ) : "Spinner"}
         </ul>
     );
@@ -91,13 +112,16 @@ const BlogPost = ({id, title, body, date, user, active}: Article) =>
     </div>
 ;
 
-const MyBlogPost = ({id, title, body, date, active, user}: Article) =>
-    <div>
-        <h3><Link to={`/article/${id}`}>{title}</Link></h3>
-        <p>{body}</p>
-        <p>{user.username}</p>
-        <p>{date}</p>
-        {!active && <button>Post</button> /* TODO: makes active, sets date, ....*/}
-        <button>Delete</button>
-    </div>
-;
+const MyBlogPost = ({id, title, body, date, active, user, postMethod}: any) => {
+    
+    return (
+        <div>
+            <h3><Link to={`/article/${id}`}>{title}</Link></h3>
+            <p>{body}</p>
+            <p>{user.username}</p>
+            <p>{date}</p>
+            {!active && <button onClick={() => postMethod(id)} >Post</button>}
+            <button>Delete</button>
+        </div>
+    )
+};

@@ -42,6 +42,12 @@ public class ArticleController {
 		return articleService.getArticleDetail(id);
 	}
 
+	@PostMapping("/article/{id}/post")
+	@ResponseStatus(HttpStatus.OK)
+	public CArticle postArticle(@PathVariable int id) {
+		return articleService.postArticle(id);
+	}
+
 	@DeleteMapping("/article/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public CArticle removeArticle(@PathVariable int id) {
@@ -52,6 +58,9 @@ public class ArticleController {
 	@ResponseStatus(HttpStatus.OK)
 	public CArticle updateArticle(@Valid @RequestBody CArticle article, @PathVariable int id) {
 		article.setId(id);
+        //TODO: embed Comment array into Article and give that back
+        //its probably enough to only have 1 level of comment nesting, but thats
+        //frontend implementation dependant
 		return articleService.updateArticle(article);
 	}
 
@@ -65,6 +74,6 @@ public class ArticleController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<CArticle> getArticleByUserIdPaginated(@PathVariable int id, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size) {
 		List<CArticle> result = articleService.getArticlesByUserIdPaginated(id, (page-1) * size, size);
-		return result;
+		return result; //TODO: reevaluate
 	}
 }

@@ -48,3 +48,7 @@
 .App {
     height: 2000px;
 }
+
+form {
+  margin-top: 75px;
+}
