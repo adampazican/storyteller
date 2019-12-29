@@ -82,13 +82,26 @@ export function MyArticles() {
                 return post;
             }));
         }
+    };
 
+    const deleteMethod = async (id: number) => {
+        const response = await fetch(`/api/v1/article/${id}`, {
+            method: HttpMethod.DELETE,
+            headers: {
+                "x-access-token": user.token
+            }
+        });
+
+        if(response.ok) 
+        {
+            setPosts(posts.filter((post: Article) => post.id !== id));
+        }
     };
 
     return (
         <ul>
             {posts.length !== 0 ? posts.map((post: any, index: number) =>
-                <MyBlogPost key={index} {...post} user={user} postMethod={postMethod} />
+                <MyBlogPost key={index} {...post} user={user} postMethod={postMethod} deleteMethod={deleteMethod} />
             ) : "Spinner"}
         </ul>
     );
@@ -99,7 +112,7 @@ const BlogPostDetail = ({id, title, body, date, user, active}: Article) =>
         <h3>{title}></h3>
         <p>{user.username}</p>
         <p>{date}</p>
-        <p>{body}</p>
+        <p dangerouslySetInnerHTML={{__html: body.replace(/<<([^>>]*)>>/g, "<h4>$1</h4>") }}></p>
     </div>
 ;
 
@@ -112,7 +125,7 @@ const BlogPost = ({id, title, body, date, user, active}: Article) =>
     </div>
 ;
 
-const MyBlogPost = ({id, title, body, date, active, user, postMethod}: any) => {
+const MyBlogPost = ({id, title, body, date, active, user, postMethod, deleteMethod}: any) => {
     
     return (
         <div>
@@ -121,7 +134,7 @@ const MyBlogPost = ({id, title, body, date, active, user, postMethod}: any) => {
             <p>{user.username}</p>
             <p>{date}</p>
             {!active && <button onClick={() => postMethod(id)} >Post</button>}
-            <button>Delete</button>
+            <button onClick={() => deleteMethod(id)}>Delete</button>
         </div>
     )
 };

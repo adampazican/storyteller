@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends CrudRepository<Article, Integer> {
 
-	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, substr(article.body, 30) as body, article.active\n" +
+	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, substr(article.body, 1, 120) || '...' as body, article.active\n" +
 			"FROM article\n" +
 			"JOIN \"user\" ON (\"user\".id = article.user_id)\n" +
 			"WHERE article.active = true\n" +
@@ -51,14 +51,15 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
 			" AND article.user_id = :userId")
 	Article getUserArticle(int id, int userId);
 
-	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, substr(article.body, 30) as body, article.active\n" +
+	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, substr(article.body, 1, 120) || '...' as body, article.active\n" +
 			"FROM article\n" +
 			"JOIN \"user\" ON (\"user\".id = article.user_id)\n" +
+			"WHERE article.user_id = :userId\n" +
 			"LIMIT :size\n" +
 			"OFFSET :offset")
 	List<Article> getArticlesByUserIdPaginated(int userId, int offset, int size);
 
-	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, substr(article.body, 30) as body, article.active\n" +			" FROM article" +
+	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, substr(article.body, 1, 120) || '...' as body, article.active\n" +			" FROM article" +
 			" JOIN \"user\" ON (\"user\".id = article.user_id)" +
 			" WHERE article.active = TRUE" +
 			" ORDER BY article.visitor_count DESC" +

@@ -74,6 +74,8 @@ public class ArticleController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<CArticle> getArticleByUserIdPaginated(@PathVariable int id, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size) {
 		List<CArticle> result = articleService.getArticlesByUserIdPaginated(id, (page-1) * size, size);
+		//TODO FIX: returns all of the articles even not his?
+		
 		return result; //TODO: reevaluate
 	}
 }

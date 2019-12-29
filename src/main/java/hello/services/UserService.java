@@ -53,8 +53,9 @@ public class UserService {
 			throw new ForbiddenException("Wrong password");
 		}
 
-		user.setToken(tokenService.createJTW("token", "java", username));
-		return user;
+		CUser targetCUser = userMapper.mapToC(targetUser);
+		targetCUser.setToken(tokenService.createJTW("token", "java", username));
+		return targetCUser;
 	}
 
 	public String registerUser(final CUser user) {
