@@ -33,6 +33,7 @@ public class AuthFilter extends OncePerRequestFilter {
 			"POST:^/api/v1/register$",
 			"POST:^/api/v1/login$",
 			"GET:^/api/v1/article/\\d+/comment$",
+			"GET:^/api/v1/article/count$",
 			"GET:^/api/v1/user/\\d+/article$"
 		);
 

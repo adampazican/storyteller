@@ -21,6 +21,11 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
 			"OFFSET :offset;")
 	List<Article> getArticlesPaginated(int offset, int size);
 
+	@Query("select count(*)\n" +
+			"from article\n" +
+			"where article.active = true;")
+	int getCountOfActiveArticles();
+
     @Query("UPDATE article" +
             " SET active=true, date=:date" +
             " WHERE id = :id")

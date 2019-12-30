@@ -65,6 +65,10 @@ export function MyArticles() {
         }
     });
 
+    const [numberOfArticles] = useFetchData(`/article/count`, [], {
+        method: HttpMethod.GET,
+    });
+
     const postMethod = async (id: number) => {
         const response = await fetch(`/api/v1/article/${id}/post`, {
             method: HttpMethod.POST,
@@ -103,6 +107,12 @@ export function MyArticles() {
             {posts.length !== 0 ? posts.map((post: any, index: number) =>
                 <MyBlogPost key={index} {...post} user={user} postMethod={postMethod} deleteMethod={deleteMethod} />
             ) : "Spinner"}
+
+            {numberOfArticles > 0 &&
+                <div id="paginator">
+                    {/** TODO: make button for every page somehow */}
+                </div> 
+            }
         </ul>
     );
 }

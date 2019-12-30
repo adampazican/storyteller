@@ -66,16 +66,20 @@ public class ArticleController {
 
 	@GetMapping("/article")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CArticle> getArticlesPaginated(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size) {
+	public List<CArticle> getArticlesPaginated(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size) {
 		return articleService.getArticlesPaginated((page-1) * size, size);
+	}
+
+	@GetMapping("/article/count")
+	@ResponseStatus(HttpStatus.OK)
+	public int getNumberOfArticlePages(@RequestParam(defaultValue = "3") int pageSize) {
+		return articleService.getNumberOfArticlePages(pageSize);
 	}
 
 	@GetMapping("/user/{id}/article")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CArticle> getArticleByUserIdPaginated(@PathVariable int id, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size) {
+	public List<CArticle> getArticleByUserIdPaginated(@PathVariable int id, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size) {
 		List<CArticle> result = articleService.getArticlesByUserIdPaginated(id, (page-1) * size, size);
-		//TODO FIX: returns all of the articles even not his?
-		
 		return result; //TODO: reevaluate
 	}
 }

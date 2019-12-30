@@ -68,7 +68,7 @@ public class ArticleService {
             }
         }
 
-        articleRepository.increaseVisitorCount(id);
+		if(article.isActive()) articleRepository.increaseVisitorCount(id);
 		return articleMapper.mapToC(article);
 	}
 
@@ -104,5 +104,11 @@ public class ArticleService {
 
 	public List<CArticle> getTopArticles() {
 		return articleMapper.mapToC(articleRepository.getMostVisitedArticles());
+	}
+
+	public int getNumberOfArticlePages(int pageSize) {
+		int numberOfArticles = articleRepository.getCountOfActiveArticles();
+
+		return (int) Math.ceil(numberOfArticles / (double) pageSize);
 	}
 }
