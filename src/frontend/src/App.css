@@ -52,3 +52,27 @@
 form {
   margin-top: 75px;
 }
+.list{
+  margin: .5rem 0 1rem 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.list a{
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  background-color: #FFFFFF;
+  color: #000000;
+  line-height: 1.5rem;
+  padding: 10px 20px;
+  margin: 0;
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 300ms ease;
+}
+
+.list a:hover{
+  background-color: #2196F3;
+  color: #ffffff;
+}

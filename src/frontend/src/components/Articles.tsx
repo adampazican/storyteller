@@ -29,10 +29,12 @@ export function ArticleDetail(props: any) {
 export function RecentArticles() {
     const [posts] = useFetchData('/', []);
     return (
-        <ul>
+        <ul className="list">
             {posts.length !== 0 ? posts.map((post: Article, index: number) =>
                 <li key={index}>
-                    <BlogPost {...post}/>
+                    <Link to={`/article/${post.id}`}>
+                        <BlogPost {...post}/>
+                    </Link>
                 </li>
             ) : "Spinner"}
         </ul>
@@ -42,10 +44,12 @@ export function RecentArticles() {
 export function TopArticles() {
     const [posts] = useFetchData('/top-articles', []);
     return (
-        <ol>
+        <ol className="list">
             {posts.length !== 0 ? posts.map((post: Article, index: number) =>
                 <li key={index}>
-                    <BlogPost {...post}/>
+                    <Link to={`/article/${post.id}`}>
+                        <BlogPost {...post}/>
+                    </Link>
                 </li>
             ) : "Spinner"}
         </ol>
@@ -128,7 +132,7 @@ const BlogPostDetail = ({id, title, body, date, user, active}: Article) =>
 
 const BlogPost = ({id, title, body, date, user, active}: Article) =>
     <div>
-        <h3><Link to={`/article/${id}`}>{title}</Link></h3>
+        <h3>{title}</h3>
         <p>{body}</p>
         <p>{user.username}</p>
         <p>{date}</p>
