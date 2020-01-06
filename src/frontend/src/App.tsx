@@ -9,12 +9,13 @@ import CreateArticleRoute from "./routes/CreateArticleRoute";
 import MyStoriesRoute from "./routes/MyStoriesRoute";
 import ArticleDetailRoute from "./routes/ArticleDetailRoute";
 import {HttpMethod} from "./hooks/useFetchData";
+import LogoutRoute from './routes/LogoutRoute';
 
 //TODO IMPORTANT: do cookies or something so that refresh or automatic url doesnt unlog you
 
 export default function App() {
     const [user, setUser] = useContext(UserContext);
-    if(Object.keys(user).length === 0) {
+    /*if(Object.keys(user).length === 0) {
         fetch("/api/v1/login", {
             method: HttpMethod.POST,
             headers: {
@@ -25,7 +26,7 @@ export default function App() {
                 "password": "admin"
             })
         }).then(data => data.json()).then(user => setUser(user));//TODO: hack
-    }
+    }*/
     return (
         <div className="App">
             <Router>
@@ -41,6 +42,9 @@ export default function App() {
                     </Route>
                     <Route path="/login">
                         <LoginRoute/>
+                    </Route>
+                    <Route path="/logout">
+                        <LogoutRoute/>
                     </Route>
                     <Route path="/article/:id" component={ArticleDetailRoute}/>
                     <Route path="/create-article">

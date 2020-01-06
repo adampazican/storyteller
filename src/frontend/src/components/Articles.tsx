@@ -4,6 +4,7 @@ import React, {useContext} from "react";
 import {UserContext} from "../context/UserContext";
 import {useHistory, useParams} from "react-router";
 import {Link} from "react-router-dom";
+import {ReactComponent as Spinner} from "../spinner.svg";
 
 export function ArticleDetail(props: any) {
     const {id} = useParams();
@@ -21,7 +22,7 @@ export function ArticleDetail(props: any) {
     const [post] = useFetchData(`/article/${id}`, null, fetchParams);
     return (
         <div className="ArticleDetail">
-            {post == null ? "Spinner" : <BlogPostDetail {...post}/>}
+            {post == null ? <Spinner /> : <BlogPostDetail {...post}/>}
         </div>
     );
 }
@@ -29,6 +30,8 @@ export function ArticleDetail(props: any) {
 export function RecentArticles() {
     const [posts] = useFetchData('/', []);
     return (
+        <div>
+            <h2>Latest Articles</h2>
         <ul className="list">
             {posts.length !== 0 ? posts.map((post: Article, index: number) =>
                 <li key={index}>
@@ -36,23 +39,27 @@ export function RecentArticles() {
                         <BlogPost {...post}/>
                     </Link>
                 </li>
-            ) : "Spinner"}
+            ) : <Spinner />}
         </ul>
+        </div>
     );
 }
 
 export function TopArticles() {
     const [posts] = useFetchData('/top-articles', []);
     return (
-        <ol className="list">
-            {posts.length !== 0 ? posts.map((post: Article, index: number) =>
-                <li key={index}>
-                    <Link to={`/article/${post.id}`}>
-                        <BlogPost {...post}/>
-                    </Link>
-                </li>
-            ) : "Spinner"}
-        </ol>
+        <div>
+            <h2>Top Articles</h2>
+            <ol className="list">
+                {posts.length !== 0 ? posts.map((post: Article, index: number) =>
+                    <li key={index}>
+                        <Link to={`/article/${post.id}`}>
+                            <BlogPost {...post}/>
+                        </Link>
+                    </li>
+                ) : <Spinner />}
+            </ol>
+        </div>
     );
 }
 
@@ -107,10 +114,14 @@ export function MyArticles() {
     };
 
     return (
-        <ul>
+        <ul className="list">
             {posts.length !== 0 ? posts.map((post: any, index: number) =>
-                <MyBlogPost key={index} {...post} user={user} postMethod={postMethod} deleteMethod={deleteMethod} />
-            ) : "Spinner"}
+                <li key={index}>
+                    <Link to={`/article/${post.id}`}>
+                        <MyBlogPost {...post} user={user} postMethod={postMethod} deleteMethod={deleteMethod} />
+                    </Link>
+                </li>
+            ) : <Spinner />}
 
             {numberOfArticles > 0 &&
                 <div id="paginator">
@@ -143,12 +154,12 @@ const MyBlogPost = ({id, title, body, date, active, user, postMethod, deleteMeth
     
     return (
         <div>
-            <h3><Link to={`/article/${id}`}>{title}</Link></h3>
+            <h3>{title}></h3>
             <p>{body}</p>
             <p>{user.username}</p>
             <p>{date}</p>
-            {!active && <button onClick={() => postMethod(id)} >Post</button>}
-            <button onClick={() => deleteMethod(id)}>Delete</button>
+            {!active && <button className="btn" onClick={() => postMethod(id)} >Post</button>}
+            <button className="btn" onClick={() => deleteMethod(id)}>Delete</button>
         </div>
     )
 };

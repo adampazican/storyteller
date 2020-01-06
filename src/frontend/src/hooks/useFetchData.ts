@@ -14,19 +14,19 @@ export default function (path: String, defaultState:any, init?: RequestInit) {
     useEffect(() => {
         let isCancelled = false;
         (async function () {
-            if(fetchedData !== defaultState) return;
-            const response: Response = await fetch(`/api/v1${path}`, init);
-            if (response.ok && !isCancelled) {
-                const data = await response.json();
-                setFetchedData(data);
-            }
-            else if(!response.ok) {
-                history.push("/");
+            if(fetchedData === defaultState){
+                const response = await fetch(`/api/v1${path}`, init);
+                if (response.ok && !isCancelled) {
+                    const data = await response.json();
+                    setFetchedData(data);
+                }
+                else if(!response.ok) {
+                    history.push("/");
+                }
             }
         })();
 
         return () => {
-            isCancelled = true;
         }
     }, [init, path, defaultState, fetchedData, history]);
 
