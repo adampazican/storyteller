@@ -92,6 +92,20 @@ form {
   outline: none;
 }
 
+textarea{
+  height: 50vh;
+}
+
+.f-comment{
+  width: 100%;
+  margin: 0;
+}
+
+.ta-comment{
+  width: 100%;
+  height: 20px;
+}
+
 .form-container{
   width: 100%;
   margin-top: 20vh;
@@ -116,7 +130,11 @@ form {
   overflow: hidden;
 }
 
-.list a{
+.list > li{
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.list > li > a{
   width: 100%;
   height: 100%;
   display: inline-block;
@@ -125,14 +143,51 @@ form {
   line-height: 1.5rem;
   padding: 10px 20px;
   margin: 0;
-  border-bottom: 1px solid #e0e0e0;
   transition: all 300ms ease;
   text-decoration: none;
+}
+
+.list-non-clickable{
+  height: 100%;
+  background-color: #FFFFFF;
+  color: #000000;
+  line-height: 1.5rem;
+  padding: 5px 10px;
+  margin: 5px 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.list-non-clickable > li{
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  background-color: #FFFFFF;
+  color: #000000;
+  line-height: 1.5rem;
+  padding: 10px 20px;
+  margin: 0;
+  transition: all 300ms ease;
+  text-decoration: none;
+}
+
+.article-detail{
+  height: 100%;
+  background-color: #FFFFFF;
+  color: #000000;
+  line-height: 1.5rem;
+  padding: 5px 10px;
+  margin: 5px 10px;
+  border: 1px solid #e0e0e0;
 }
 
 .list a:hover{
   background-color: #2196F3;
   color: #ffffff;
+}
+
+form > .btn{
+  padding: 0;
+  margin: 0;
 }
 
 .btn{
@@ -141,7 +196,13 @@ form {
   height: 36px;
   line-height: 36px;
   padding: 0 16px;
+  margin: 0 2px;
   cursor: pointer;
+  z-index: 9999;
+}
+
+.action-buttons{
+  margin: 10px 20px;
 }
 
 @media only screen and (max-width: 1000px) {

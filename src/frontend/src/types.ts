@@ -13,3 +13,12 @@ export type Article = {
     body: string
     active: boolean
 }
+
+export type Comment = {
+    id: Number
+    user: User
+    body: string
+    date: Date
+}
+
+export const PREFIX = "http://localhost:9000";

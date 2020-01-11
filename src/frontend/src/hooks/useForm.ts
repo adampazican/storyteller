@@ -1,9 +1,7 @@
-import {useHistory} from "react-router";
 import {FormEvent, useState} from "react";
 import {HttpMethod} from "./useFetchData";
 
-export default function(path: string, { onSuccessCallback, token }: { onSuccessCallback?: any, token?: string }) {
-    const history = useHistory();
+export default function(path: string, { onSuccessCallback, token, method, defaultState }: { onSuccessCallback?: any, token?: string, method?: HttpMethod, defaultState?: any }) {
     const [formFields, setFormFields] = useState({});
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -19,21 +17,25 @@ export default function(path: string, { onSuccessCallback, token }: { onSuccessC
             headers["x-access-token"] = token;
         }
 
+        if(defaultState)
+        {
+            defaultState = { ...defaultState, ...formFields };
+        }
+
         const response: Response = await fetch(`/api/v1${path}`, {
-            method: HttpMethod.POST,
+            method: method || HttpMethod.POST,
             headers,
-            body: JSON.stringify(formFields)
+            body: JSON.stringify(defaultState || formFields)
         });
-        const data = await response.json();
 
         if(response.ok) {
-            history.push("/");
+            const data = await response.json();
             if(onSuccessCallback) {
                 onSuccessCallback(data);
             }
         }
         else {
-            setErrorMessage(data.message);
+            setErrorMessage("");
         }
     };
 

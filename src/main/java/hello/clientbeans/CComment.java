@@ -1,5 +1,6 @@
 package hello.clientbeans;
 
+import hello.beans.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -14,13 +15,12 @@ public class CComment {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private int id;
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	private int userId;
+	private String username;
 	@NotBlank
 	@Size(min = 20, max = 200, message = "Required number of params is between 3 and 20")
 	private String body;
+	@NotNull
+	private int articleId;
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Date date;
-	private Integer commentId;
-	@NotNull
-	private Integer articleId;
 }

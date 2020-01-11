@@ -1,10 +1,10 @@
 package hello.controllers;
 
 import hello.clientbeans.CComment;
-import hello.clientbeans.CCommentDetail;
 import hello.services.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.jca.cci.core.support.CciDaoSupport;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +17,14 @@ public class CommentController {
 
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/article/{articleId}/comment")
-	public List<CCommentDetail> getCommentsForArticle(@PathVariable int articleId) {
+	public List<CComment> getCommentsForArticle(@PathVariable int articleId) {
 		return commentService.getCommentsForArticle(articleId);
 	}
 
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping("/comment")
-	public CCommentDetail createCommentForArticle(@RequestBody CComment cComment) {
-		return commentService.createComment(cComment);
+	public CComment createCommentForArticle(@RequestBody CComment cComment) {
+		CComment result = commentService.createComment(cComment);
+		return result;
 	}
 }

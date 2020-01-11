@@ -5,6 +5,7 @@ export enum HttpMethod {
     GET = "GET",
     POST = "POST",
     DELETE = "DELETE",
+    PUT = "PUT",
 }
 
 export default function (path: String, defaultState:any, init?: RequestInit) {
@@ -15,6 +16,7 @@ export default function (path: String, defaultState:any, init?: RequestInit) {
         let isCancelled = false;
         (async function () {
             if(fetchedData === defaultState){
+                console.log(path)
                 const response = await fetch(`/api/v1${path}`, init);
                 if (response.ok && !isCancelled) {
                     const data = await response.json();

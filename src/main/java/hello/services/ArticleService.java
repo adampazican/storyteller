@@ -50,7 +50,7 @@ public class ArticleService {
 			throw new ForbiddenException();
 		}
 
-		articleRepository.updateArticle(newArticle.getId(), Date.from(Instant.now()), article.getTitle(), article.getBody());
+		articleRepository.updateArticle(newArticle.getId(), Date.from(Instant.now()), newArticle.getTitle(), newArticle.getBody());
 		article = articleRepository.getArticle(newArticle.getId());
 
 		return articleMapper.mapToC(article);

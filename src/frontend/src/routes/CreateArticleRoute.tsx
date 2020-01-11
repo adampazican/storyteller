@@ -4,9 +4,11 @@ import useForm from "../hooks/useForm";
 import {User} from "../types";
 import {UserContext} from "../context/UserContext";
 import Footer from "../components/Footer";
+import {useHistory} from "react-router";
 
 export default () => {
     const [user] = useContext<[User, any]>(UserContext);
+    const history = useHistory();
     const {handleSubmit, handleChange, errorMessage} = useForm("/article", { token: user.token });
 
     return (

@@ -11,9 +11,7 @@ public class Comment {
 	@Id
 	private int id;
 	private int userId;
+	private int articleId;
 	private String body;
 	private Date date;
-	@Transient
-	private Integer commentId;
-	private Integer articleId;
 }

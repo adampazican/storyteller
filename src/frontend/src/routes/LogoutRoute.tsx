@@ -7,6 +7,7 @@ export default () => {
     const history = useHistory();
     
     setUser({});
+    localStorage.removeItem("user");
     history.push("/");
     return (
         <div>

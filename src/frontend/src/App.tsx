@@ -8,25 +8,17 @@ import {UserContext} from "./context/UserContext";
 import CreateArticleRoute from "./routes/CreateArticleRoute";
 import MyStoriesRoute from "./routes/MyStoriesRoute";
 import ArticleDetailRoute from "./routes/ArticleDetailRoute";
-import {HttpMethod} from "./hooks/useFetchData";
 import LogoutRoute from './routes/LogoutRoute';
-
-//TODO IMPORTANT: do cookies or something so that refresh or automatic url doesnt unlog you
+import ArticleUpdateRoute from "./routes/ArticleUpdateRoute";
 
 export default function App() {
     const [user, setUser] = useContext(UserContext);
-    /*if(Object.keys(user).length === 0) {
-        fetch("/api/v1/login", {
-            method: HttpMethod.POST,
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "username": "admin",
-                "password": "admin"
-            })
-        }).then(data => data.json()).then(user => setUser(user));//TODO: hack
-    }*/
+
+    const storedUser = localStorage.getItem("user");
+    if(storedUser && Object.keys(user).length === 0)
+    {
+        setUser(JSON.parse(storedUser));
+    }
     return (
         <div className="App">
             <Router>
@@ -46,14 +38,12 @@ export default function App() {
                     <Route path="/logout">
                         <LogoutRoute/>
                     </Route>
+                    <Route path="/article/:id/update" component={ArticleUpdateRoute}/>
                     <Route path="/article/:id" component={ArticleDetailRoute}/>
                     <Route path="/create-article">
-                        {Object.keys(user).length !== 0 ?
-                            <CreateArticleRoute/> :
-                            <IndexRoute/>
-                        }
+                            <CreateArticleRoute/>
                     </Route>
-                    <Route path="/">
+                    <Route exact path="/">
                         <IndexRoute/>
                     </Route>
                 </Switch>
@@ -61,3 +51,13 @@ export default function App() {
         </div>
     );
 };
+
+
+/*
+* TODO: IMPORTANT
+*  - COMMENTS
+*  - PAGINATOR
+*  - CLIENT/SEVER VALIDATION
+*  - DELETE ON SERVER
+*  - SERVER: on index return built version of frontend
+* */

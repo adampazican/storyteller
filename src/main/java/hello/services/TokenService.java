@@ -25,7 +25,7 @@ public class TokenService {
 								 .setId(id)
 								 .setIssuedAt(Date.from(Instant.now()))
 								 .setIssuer(issuer)
-								 .setExpiration(DateUtils.addDays(Date.from(Instant.now()), 1))
+								 .setExpiration(DateUtils.addDays(Date.from(Instant.now()), 10))
 								 .setSubject(subject)
 								 .signWith(signingKey, alg);
 		return builder.compact();
