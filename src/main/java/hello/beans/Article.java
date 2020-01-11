@@ -1,23 +1,22 @@
 package hello.beans;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 @Data
-@RequiredArgsConstructor
+@Getter
+@Setter
 public class Article {
 	@Id
 	private int id;
-	@Column(name = "user")
-	private User user;
+	private int userId;
 	private Date date;
 	private String title;
 	private String body;
 	private boolean active;
-	//TODO: add new fields(category_id)
-	//TODO: image?
 }

@@ -10,14 +10,10 @@ import java.util.List;
 
 @Mapper(withIoC = IoC.SPRING)
 public interface ArticleMapper {
+
 	@Maps(withIgnoreFields = {
-			"hello.beans.User.password"
+			"user",
+			"userId"
 	})
-	CArticle mapToC(Article article);
-
-	@Maps
 	Article mapFromC(CArticle article);
-
-	@Maps()
-	List<CArticle> mapToC(List<Article> articles);
 }

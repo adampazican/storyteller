@@ -1,7 +1,6 @@
 package hello.controllers;
 
 import hello.clientbeans.CArticle;
-import hello.clientbeans.CArticleDetail;
 import hello.services.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -51,16 +50,13 @@ public class ArticleController {
 	@DeleteMapping("/article/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public CArticle removeArticle(@PathVariable int id) {
-		return articleService.softRemoveArticle(id);
+		return articleService.removeArticle(id);
 	}
 
 	@PutMapping("/article/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public CArticle updateArticle(@Valid @RequestBody CArticle article, @PathVariable int id) {
 		article.setId(id);
-        //TODO: embed Comment array into Article and give that back
-        //its probably enough to only have 1 level of comment nesting, but thats
-        //frontend implementation dependant
 		return articleService.updateArticle(article);
 	}
 

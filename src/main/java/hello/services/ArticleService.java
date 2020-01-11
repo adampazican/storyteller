@@ -1,5 +1,6 @@
 package hello.services;
 
+import fr.xebia.extras.selma.Maps;
 import hello.beans.Article;
 import hello.beans.LoggedUser;
 import hello.beans.User;
@@ -16,6 +17,7 @@ import lombok.var;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class ArticleService {
 	private final UserMapper userMapper;
 
 	public List<CArticle> getArticleList() {
-		return articleMapper.mapToC(articleRepository.getArticlesPaginated(0, 5));
+		return mapToC(articleRepository.getArticlesPaginated(0, 5));
 	}
 
 	public CArticle postArticle(final int id) {
@@ -39,21 +41,24 @@ public class ArticleService {
 
 	public CArticle createArticle(final CArticle article) {
 		article.setDate(Date.from(Instant.now()));
-		article.getUser().setId(loggedInUser.getUser().getId());
-		return articleMapper.mapToC(articleRepository.save(articleMapper.mapFromC(article)));
+
+		Article article1 = articleMapper.mapFromC(article);
+		article1.setUserId(loggedInUser.getUser().getId());
+		article1 = articleRepository.save(article1);
+		return mapToC(article1);
 	}
 
 	public CArticle updateArticle(final CArticle newArticle) {
-		var article = getArticle(newArticle.getId());
+		var article = articleRepository.getUserArticle(newArticle.getId(), loggedInUser.getUser().getId());
 
-		if(article.getUser().getId() != loggedInUser.getUser().getId()) {
+		if(article == null || article.getUserId() != loggedInUser.getUser().getId()) {
 			throw new ForbiddenException();
 		}
 
 		articleRepository.updateArticle(newArticle.getId(), Date.from(Instant.now()), newArticle.getTitle(), newArticle.getBody());
-		article = articleRepository.getArticle(newArticle.getId());
+		article = articleRepository.getUserArticle(newArticle.getId(), loggedInUser.getUser().getId());
 
-		return articleMapper.mapToC(article);
+		return mapToC(article);
 	}
 
 	public CArticle getArticleDetail(final int id) {
@@ -69,7 +74,7 @@ public class ArticleService {
         }
 
 		if(article.isActive()) articleRepository.increaseVisitorCount(id);
-		return articleMapper.mapToC(article);
+		return mapToC(article);
 	}
 
 	public Article getArticle(final int id) {
@@ -82,28 +87,52 @@ public class ArticleService {
 		return article;
 	}
 
-	public CArticle softRemoveArticle(final int id) {
+	public CArticle removeArticle(final int id) {
 		val article = getArticle(id);
 
-		if(article.getUser().getId() != loggedInUser.getUser().getId()) {
+		if(article.getUserId() != loggedInUser.getUser().getId()) {
 			throw new ForbiddenException();
 		}
-
-		//articleRepository.softRemoveArticle(id);
-		//TODO: make replacement with normal delete
-		return articleMapper.mapToC(article);
+		articleRepository.deleteById(id);
+		return mapToC(article);
 	}
 
 	public List<CArticle> getArticlesPaginated(final int offset, final int size) {
-		return articleMapper.mapToC(articleRepository.getArticlesPaginated(offset, size));
+		return mapToC(articleRepository.getArticlesPaginated(offset, size));
 	}
 
 	public List<CArticle> getArticlesByUserIdPaginated(final int id, final int offset, final int size) {
-		return articleMapper.mapToC(articleRepository.getArticlesByUserIdPaginated(id, offset, size));
+		return mapToC(articleRepository.getArticlesByUserIdPaginated(id, offset, size));
 	}
 
 	public List<CArticle> getTopArticles() {
-		return articleMapper.mapToC(articleRepository.getMostVisitedArticles());
+		List<Article> articles = articleRepository.getMostVisitedArticles();
+		return mapToC(articles);
+	}
+
+	private CArticle mapToC(Article article) {
+		CArticle cArticle = new CArticle();
+
+		User user = userService.getUser(article.getUserId());
+		user.setPassword(null);
+		cArticle.setUser(user);
+		cArticle.setDate(article.getDate());
+		cArticle.setId(article.getId());
+		cArticle.setActive(article.isActive());
+		cArticle.setBody(article.getBody());
+		cArticle.setTitle(article.getTitle());
+
+		return cArticle;
+	}
+
+	private List<CArticle> mapToC(List<Article> articles){
+		List<CArticle> cArticles = new ArrayList<>();
+
+		for(Article article : articles){
+			cArticles.add(mapToC(article));
+		}
+
+		return cArticles;
 	}
 
 	public int getNumberOfArticlePages(int pageSize) {

@@ -1,6 +1,5 @@
 package hello.controllers;
 
-import hello.clientbeans.CImage;
 import hello.clientbeans.CUser;
 import hello.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -28,11 +27,6 @@ public class UserController {
 		return userService.registerUser(user);
 	}
 
-	@PostMapping("/image")
-	@ResponseStatus(HttpStatus.OK)
-	public String uploadImage(@Valid @RequestBody CImage img) {
-		return userService.uploadImage(img);
-	}
 
 	@GetMapping("/user/detail")
 	@ResponseStatus(HttpStatus.OK)

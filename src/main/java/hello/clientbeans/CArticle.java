@@ -25,6 +25,4 @@ public class CArticle {
 	private String body;
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private boolean active;
-	//TODO: required category param
-	//TODO: delete default value from databaze of category
 }

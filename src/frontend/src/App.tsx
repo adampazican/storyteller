@@ -55,9 +55,10 @@ export default function App() {
 
 /*
 * TODO: IMPORTANT
-*  - ROUTE RESTRICTION FRONTEND
 *  - PAGINATOR
-*  - SERVER: on index return built version of frontend
 *  - RESPONSIVE MENU BUTTON
+*
+*  - ROUTE RESTRICTION FRONTEND
+*  - SERVER: on index return built version of frontend
 *  - change púassword? user profile?
 * */

@@ -21,6 +21,9 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
 			"OFFSET :offset;")
 	List<Article> getArticlesPaginated(int offset, int size);
 
+	@Query("DELETE FROM article WHERE article.id = :id")
+	int deleteById(int id);
+
 	@Query("select count(*)\n" +
 			"from article\n" +
 			"where article.active = true;")
