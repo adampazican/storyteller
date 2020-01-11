@@ -59,4 +59,5 @@ export default function App() {
 *  - PAGINATOR
 *  - SERVER: on index return built version of frontend
 *  - RESPONSIVE MENU BUTTON
+*  - change púassword? user profile?
 * */
