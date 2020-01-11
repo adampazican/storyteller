@@ -55,9 +55,8 @@ export default function App() {
 
 /*
 * TODO: IMPORTANT
-*  - COMMENTS
+*  - ROUTE RESTRICTION FRONTEND
 *  - PAGINATOR
-*  - CLIENT/SEVER VALIDATION
-*  - DELETE ON SERVER
 *  - SERVER: on index return built version of frontend
+*  - RESPONSIVE MENU BUTTON
 * */

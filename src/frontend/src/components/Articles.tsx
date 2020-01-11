@@ -5,8 +5,6 @@ import {UserContext} from "../context/UserContext";
 import {useHistory, useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {ReactComponent as Spinner} from "../spinner.svg";
-import Header from "./Header";
-import Footer from "./Footer";
 import useForm from "../hooks/useForm";
 
 export function ArticleDetail(props: any) {
@@ -17,8 +15,6 @@ export function ArticleDetail(props: any) {
         method: HttpMethod.POST,
         headers: {}
     };
-
-
 
     if(Object.keys(user).length !== 0) {
         //@ts-ignore
@@ -45,14 +41,13 @@ function Comments({ articleId, token } : any){
         console.log(newComment);
         setComments([newComment, ...comments]);
     }});
-
     return (
         <div>
             <ul className="list list-non-clickable">
                 {user && <div className="">
                     <form className="f-comment" onSubmit={handleSubmit}>
                         {errorMessage !== "" && <p className="error">{errorMessage}</p>}
-                        <textarea className="form-element ta-comment" name="body" placeholder="Write your thoughts about this story" onChange={handleChange}/>
+                        <textarea className="form-element ta-comment" name="body" placeholder="Write your thoughts about this story" onChange={handleChange} minLength={20} maxLength={200}/>
                         <input className="btn" type="submit" value="Send"/>
                     </form>
                 </div>}

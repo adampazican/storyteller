@@ -21,8 +21,8 @@ export default () => {
             <Header/>
             <form onSubmit={handleSubmit}>
                 {errorMessage !== "" && <p className="error">{errorMessage}</p>}
-                <input className="form-element" type="text" name="username" placeholder="username" onChange={handleChange} autoFocus/>
-                <input className="form-element" type="password" name="password" placeholder="password" onChange={handleChange}/>
+                <input className="form-element" type="text" name="username" placeholder="username" onChange={handleChange} autoFocus minLength={3} maxLength={20}/>
+                <input className="form-element" type="password" name="password" placeholder="password" onChange={handleChange} minLength={5} maxLength={28}/>
                 <input className="btn" type="submit" value="Submit"/>
             </form>
             <Footer />
