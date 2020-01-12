@@ -31,7 +31,7 @@ public class ArticleService {
 	private final UserMapper userMapper;
 
 	public List<CArticle> getArticleList() {
-		return mapToC(articleRepository.getArticlesPaginated(0, 5));
+		return mapToC(articleRepository.getArticles());
 	}
 
 	public CArticle postArticle(final int id) {
@@ -95,10 +95,6 @@ public class ArticleService {
 		}
 		articleRepository.deleteById(id);
 		return mapToC(article);
-	}
-
-	public List<CArticle> getArticlesPaginated(final int offset, final int size) {
-		return mapToC(articleRepository.getArticlesPaginated(offset, size));
 	}
 
 	public List<CArticle> getArticlesByUserIdPaginated(final int id, final int offset, final int size) {

@@ -20,7 +20,7 @@ export default (props: any) => {
     const [post] = useFetchData(`/article/${id}`, null, fetchParams);
 
     const {handleSubmit, handleChange, errorMessage} = useForm(`/article/${id}`, { token: user.token, method: HttpMethod.PUT, defaultState: post, onSuccessCallback: () => {
-        history.push("/");
+        history.push("/my-stories");
     }});
 
     if(Object.keys(user).length !== 0) {
@@ -33,8 +33,8 @@ export default (props: any) => {
             <Header/>
             <form onSubmit={handleSubmit}>
                 {errorMessage !== "" && <p className="error">{errorMessage}</p>}
-                <input className="form-element" type="text" name="title" placeholder="Title" onChange={handleChange} autoFocus defaultValue={post && post.title || ""} minLength={8} maxLength={28}/>
-                <textarea className="form-element" name="body" placeholder="Write about your story" onChange={handleChange} defaultValue={post && post.body || ""} minLength={8} maxLength={20000}/>
+                <input className="form-element" type="text" name="title" placeholder="Title" onChange={handleChange} autoFocus defaultValue={(post && post.title) || ""} minLength={8} maxLength={28}/>
+                <textarea className="form-element" name="body" placeholder="Write about your story" onChange={handleChange} defaultValue={(post && post.body) || ""} minLength={8} maxLength={20000}/>
                 <input className="btn" type="submit" value="Submit"/>
             </form>
             <Footer />

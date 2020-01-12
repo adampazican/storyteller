@@ -23,9 +23,4 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 			" from \"user\"" +
 			" where id = :userId")
 	User getUser(int userId);
-
-	@Query("update \"user\" set image_id = :imageId" +
-			" where id = :userId")
-	@Modifying
-	void updateImageForUser(Integer userId, Integer imageId);
 }

@@ -16,12 +16,11 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
 			"FROM article\n" +
 			"JOIN \"user\" ON (\"user\".id = article.user_id)\n" +
 			"WHERE article.active = true\n" +
-			"ORDER BY article.date DESC\n" +
-			"LIMIT :size\n" +
-			"OFFSET :offset;")
-	List<Article> getArticlesPaginated(int offset, int size);
+			"ORDER BY article.date DESC;\n")
+	List<Article> getArticles();
 
 	@Query("DELETE FROM article WHERE article.id = :id")
+	@Modifying
 	int deleteById(int id);
 
 	@Query("select count(*)\n" +

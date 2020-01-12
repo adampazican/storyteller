@@ -8,7 +8,7 @@ import {useHistory} from "react-router";
 
 export default () => {
     const history = useHistory();
-    const [user, setUser] = useContext(UserContext);
+    const [_, setUser] = useContext(UserContext);
     const {handleSubmit, handleChange, errorMessage} = useForm("/login", { onSuccessCallback: (newUser: User) => {
         // @ts-ignore
         setUser(newUser);
@@ -21,6 +21,7 @@ export default () => {
             <Header/>
             <form onSubmit={handleSubmit}>
                 {errorMessage !== "" && <p className="error">{errorMessage}</p>}
+                <p>Login</p>
                 <input className="form-element" type="text" name="username" placeholder="username" onChange={handleChange} autoFocus minLength={3} maxLength={20}/>
                 <input className="form-element" type="password" name="password" placeholder="password" onChange={handleChange} minLength={5} maxLength={28}/>
                 <input className="btn" type="submit" value="Submit"/>

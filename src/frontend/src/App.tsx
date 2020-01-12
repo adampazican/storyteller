@@ -23,9 +23,9 @@ export default function App() {
         <div className="App">
             <Router>
                 <Switch>
-                    <PrivateRoute path="/my-stories" user={user} Component={MyStoriesRoute}/>
-                    <PrivateRoute path="/logout" user={user} Component={LogoutRoute}/>
+                    <PrivateRoute path="/logout" user={Object.keys(user).length !== 0 || localStorage.getItem("user") != null} Component={LogoutRoute}/>
                     <PrivateRoute path="/article/:id/update" Component={ArticleUpdateRoute} user={user}/>
+                    <PrivateRoute path="/my-stories" user={user} Component={MyStoriesRoute}/>
                     <PrivateRoute path="/create-article" user={user} Component={CreateArticleRoute}/>
 
                     <Route path="/about">
@@ -37,7 +37,9 @@ export default function App() {
                     <Route path="/login">
                         <LoginRoute/>
                     </Route>
-                    <Route path="/article/:id" Component={ArticleDetailRoute}/>
+                    <Route path="/article/:id">
+                        <ArticleDetailRoute/>
+                    </Route>
                     <Route exact path="/">
                         <IndexRoute/>
                     </Route>
@@ -50,8 +52,7 @@ export default function App() {
 function PrivateRoute({ Component, user, ...rest }: any){
     return(
         <Route {...rest} render={(props) => (
-            Object.keys(user).length !== 0
-                ? <Component {...props} />
+                user ? <Component {...props} />
                 : <Redirect to='/login' />
         )} />
     )
@@ -61,7 +62,6 @@ function PrivateRoute({ Component, user, ...rest }: any){
 * TODO: IMPORTANT
 *  - PAGINATOR
 *
-*  - ROUTE RESTRICTION FRONTEND
 *  - SERVER: on index return built version of frontend
 *  - change password? user profile?
 * */

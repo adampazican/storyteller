@@ -60,12 +60,6 @@ public class ArticleController {
 		return articleService.updateArticle(article);
 	}
 
-	@GetMapping("/article")
-	@ResponseStatus(HttpStatus.OK)
-	public List<CArticle> getArticlesPaginated(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size) {
-		return articleService.getArticlesPaginated((page-1) * size, size);
-	}
-
 	@GetMapping("/article/count")
 	@ResponseStatus(HttpStatus.OK)
 	public int getNumberOfArticlePages(@RequestParam(defaultValue = "3") int pageSize) {
@@ -76,6 +70,6 @@ public class ArticleController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<CArticle> getArticleByUserIdPaginated(@PathVariable int id, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size) {
 		List<CArticle> result = articleService.getArticlesByUserIdPaginated(id, (page-1) * size, size);
-		return result; //TODO: reevaluate
+		return result;
 	}
 }

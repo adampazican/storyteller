@@ -20,10 +20,4 @@ public interface CommentRepository extends CrudRepository<Comment, Integer> {
 			"JOIN \"user\" ON \"user\".id = \"comment\".user_id\n" +
 			"WHERE \"comment\".article_id = :articleId;")
 	List<CComment> getCommentsForArticle(int articleId);
-
-	@Query("SELECT id, user_id, body, date, comment_id, comment.article_id" +
-			" FROM \"comment\"" +
-			" JOIN comment_comment ON \"comment\".id = comment_comment.comment_id_2" +
-			" WHERE comment_comment.comment_id = :commentId")
-	List<Comment> getCommentsByCommentId(Integer commentId);
 }

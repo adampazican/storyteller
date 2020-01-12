@@ -69,9 +69,12 @@
     justify-content: space-between;
 }
 
-#header h1 {
+#header h1 a{
   line-height: 50px;
   margin-left: 5px;
+  color: white;
+  text-decoration: none;
+  font-size: .8em;
 }
 
 #header .menu-items{
@@ -94,6 +97,7 @@
     height: 75vh;
     background-color: #2196F3;
     background-image: url("./landing.jpg");
+    background-blend-mode: darken;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -103,7 +107,8 @@
 
 #landing-area h2 {
   line-height: 75vh;
-  color: #2196F3;
+  color: white;
+  font-size: 2.8em;
 }
 
 #latest-blogs{
@@ -272,6 +277,10 @@ form > .btn{
   .menu-button{
     display: block;
   }
+
+  #landing-area h2 {
+    font-size: 2.0em;
+  }
 }
 
 
@@ -286,4 +295,7 @@ form > .btn{
     padding: 5px;
   }
 
+  #landing-area h2 {
+    font-size: 1.5em;
+  }
 }

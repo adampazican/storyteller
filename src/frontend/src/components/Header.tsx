@@ -48,7 +48,7 @@ function Menu (props: any) {
 
 function MobileMenu(props: any){
     return (
-        <div id="mobile-menu" style={props.isMenuOpen && { display: "block" } || {}}>
+        <div id="mobile-menu" style={(props.isMenuOpen && { display: "block" }) || {}}>
             <ul>
             {Object.keys(props.user).length === 0?
                 <div>

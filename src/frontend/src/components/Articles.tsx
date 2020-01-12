@@ -65,6 +65,7 @@ function Comments({ articleId, token } : any){
 
 export function RecentArticles() {
     const [posts] = useFetchData('/', []);
+
     return (
         <div>
             <h2>Latest Articles</h2>
@@ -102,18 +103,12 @@ export function TopArticles() {
 export function MyArticles() {
     const history = useHistory();
     const [user] = useContext<[User, any]>(UserContext);
-    if(Object.keys(user).length === 0) {
-        history.push("/");
-    }
+
     const [posts, setPosts] = useFetchData(`/user/${user.id}/article`, [], {
         method: HttpMethod.GET,
         headers: {
             "x-access-token": user.token
         }
-    });
-
-    const [numberOfArticles] = useFetchData(`/article/count`, [], {
-        method: HttpMethod.GET,
     });
 
     const postMethod = async (id: Number) => {
@@ -137,7 +132,7 @@ export function MyArticles() {
     };
 
     const deleteMethod = async (id: Number) => {
-        const response = await fetch(`/api/v1/article/${id}`, { //TODO: fix on server
+        const response = await fetch(`/api/v1/article/${id}`, {
             method: HttpMethod.DELETE,
             headers: {
                 "x-access-token": user.token
@@ -164,12 +159,6 @@ export function MyArticles() {
                     </div>
                 </li>
             ) : <Spinner />}
-
-            {numberOfArticles > 0 &&
-                <div id="paginator">
-                    {/** TODO: make button for every page somehow */}
-                </div> 
-            }
         </ul>
     );
 }
@@ -184,7 +173,7 @@ const BlogPostDetail = ({id, title, body, date, user, active}: Article) =>
 ;
 
 const BlogPost = ({id, title, body, date, user, active}: Article) =>
-    <div style={!active && { color: "#9E9E9E"} || {}} >
+    <div style={(!active && { color: "#9E9E9E"}) || {}} >
         <h3>{title}</h3>
         <p>{body}</p>
         <p>{user.username}</p>

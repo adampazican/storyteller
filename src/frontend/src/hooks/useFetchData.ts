@@ -10,13 +10,13 @@ export enum HttpMethod {
 
 export default function (path: String, defaultState:any, init?: RequestInit) {
     const [fetchedData, setFetchedData] = useState(defaultState);
+    const [guard, setGuard] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
         let isCancelled = false;
         (async function () {
-            if(fetchedData === defaultState){
-                console.log(path)
+            if(!path.includes("undefined") && !guard){
                 const response = await fetch(`/api/v1${path}`, init);
                 if (response.ok && !isCancelled) {
                     const data = await response.json();
@@ -25,6 +25,7 @@ export default function (path: String, defaultState:any, init?: RequestInit) {
                 else if(!response.ok) {
                     history.push("/");
                 }
+                setGuard(true);
             }
         })();
 
