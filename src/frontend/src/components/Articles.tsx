@@ -175,7 +175,7 @@ const BlogPostDetail = ({id, title, body, date, user, active}: Article) =>
 const BlogPost = ({id, title, body, date, user, active}: Article) =>
     <div style={(!active && { color: "#9E9E9E"}) || {}} >
         <h3>{title}</h3>
-        <p>{body}</p>
+        <p dangerouslySetInnerHTML={{__html: body.replace(/<<([^>>]*)>>/g, "<h4>$1</h4>")}}/>
         <p>{user.username}</p>
         <p>{date}</p>
     </div>
