@@ -41,7 +41,7 @@ public class AuthFilter extends OncePerRequestFilter {
 			"POST:^/api/v1/article/\\d+$"
 		);
 
-		if (checkPath(whitelist, request)) {
+		if (checkPath(whitelist, request) || !request.getServletPath().contains("api")) {
 			filterChain.doFilter(request, response);
 			return;
 		}
