@@ -55,15 +55,15 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
 			" FROM article" +
 			" JOIN \"user\" ON (article.user_id = \"user\".id)" +
 			" WHERE article.id = :id" +
-			" AND article.user_id = :userId")
+			" AND article.user_id = :userId" +
+			" ORDER BY article.date DESC")
 	Article getUserArticle(int id, int userId);
 
 	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, substr(article.body, 1, 120) || '...' as body, article.active\n" +
 			"FROM article\n" +
 			"JOIN \"user\" ON (\"user\".id = article.user_id)\n" +
 			"WHERE article.user_id = :userId\n" +
-			"LIMIT :size\n" +
-			"OFFSET :offset")
+			" ORDER BY article.date DESC")
 	List<Article> getArticlesByUserIdPaginated(int userId, int offset, int size);
 
 	@Query("SELECT article.id, \"user\".id as user_id, \"user\".username as user_username, \"user\".password as user_password, article.date, article.title, substr(article.body, 1, 120) || '...' as body, article.active\n" +			" FROM article" +
