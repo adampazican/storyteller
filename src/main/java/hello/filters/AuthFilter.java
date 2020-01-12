@@ -49,7 +49,7 @@ public class AuthFilter extends OncePerRequestFilter {
 		val authHeader = request.getHeader("x-access-token");
 		if(authHeader == null && checkPath(optional, request)){
 			filterChain.doFilter(request, response);
-			return; //TODO: make some refactorring hear
+			return;
 		}
 
 		if(authHeader == null || authHeader.isEmpty()) {

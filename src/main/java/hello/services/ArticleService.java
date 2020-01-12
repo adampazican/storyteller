@@ -5,7 +5,6 @@ import hello.beans.Article;
 import hello.beans.LoggedUser;
 import hello.beans.User;
 import hello.clientbeans.CArticle;
-import hello.clientbeans.CArticleDetail;
 import hello.exceptions.ForbiddenException;
 import hello.exceptions.NotFoundException;
 import hello.mappers.ArticleMapper;

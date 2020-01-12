@@ -60,8 +60,6 @@ function PrivateRoute({ Component, user, ...rest }: any){
 
 /*
 * TODO: IMPORTANT
-*  - PAGINATOR
 *
 *  - SERVER: on index return built version of frontend
-*  - change password? user profile?
 * */

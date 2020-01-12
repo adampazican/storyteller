@@ -75,7 +75,7 @@ public class UserService {
 		return getUser(username) != null;
 	}
 
-	public CUser getUserDetail() { //TODO: make this for like profile or settings or smthing(change password)
+	public CUser getUserDetail() {
 		User user = userRepository.getUser(loggedUser.getUser().getId());
 		return userMapper.mapToC(user);
 	}
