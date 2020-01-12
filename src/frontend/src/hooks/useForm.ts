@@ -31,11 +31,12 @@ export default function(path: string, { onSuccessCallback, token, method, defaul
         if(response.ok) {
             const data = await response.json();
             if(onSuccessCallback) {
+                console.log(data);
                 onSuccessCallback(data);
             }
         }
         else {
-            setErrorMessage("");
+            setErrorMessage(response.statusText);
         }
     };
 

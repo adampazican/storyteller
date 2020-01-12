@@ -41,6 +41,12 @@ public class AuthFilter extends OncePerRequestFilter {
 			"POST:^/api/v1/article/\\d+$"
 		);
 
+		if(!request.getServletPath().contains("api") && !request.getServletPath().matches("\\/(.)+\\.\\w+") && !request.getServletPath().equalsIgnoreCase("/"))
+		{
+			((HttpServletResponse)response).sendRedirect("/");
+			return;
+		}
+
 		if (checkPath(whitelist, request) || !request.getServletPath().contains("api")) {
 			filterChain.doFilter(request, response);
 			return;

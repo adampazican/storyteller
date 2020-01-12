@@ -32,7 +32,7 @@ export default (props: any) => {
         <div className="form-container">
             <Header/>
             <form onSubmit={handleSubmit}>
-                {errorMessage !== "" && <p className="error">{errorMessage}</p>}
+                {errorMessage !== "" && <p className="error">Nespravne parametre</p>}
                 <input className="form-element" type="text" name="title" placeholder="Title" onChange={handleChange} autoFocus defaultValue={(post && post.title) || ""} minLength={8} maxLength={28}/>
                 <textarea className="form-element" name="body" placeholder="Write about your story" onChange={handleChange} defaultValue={(post && post.body) || ""} minLength={8} maxLength={20000}/>
                 <input className="btn" type="submit" value="Submit"/>

@@ -23,7 +23,7 @@ public class UserController {
 
 	@PostMapping("/register")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String register(@Valid @RequestBody CUser user) {
+	public CUser register(@Valid @RequestBody CUser user) {
 		return userService.registerUser(user);
 	}
 

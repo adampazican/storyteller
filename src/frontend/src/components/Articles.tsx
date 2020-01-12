@@ -46,7 +46,7 @@ function Comments({ articleId, token } : any){
             <ul className="list list-non-clickable">
                 {user && <div className="">
                     <form className="f-comment" onSubmit={handleSubmit}>
-                        {errorMessage !== "" && <p className="error">{errorMessage}</p>}
+                        {errorMessage !== "" && <p className="error">Neplatny obsah komentara</p>}
                         <textarea className="form-element ta-comment" name="body" placeholder="Write your thoughts about this story" onChange={handleChange} minLength={20} maxLength={200}/>
                         <input className="btn" type="submit" value="Send"/>
                     </form>

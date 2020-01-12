@@ -52,7 +52,7 @@ public class UserService {
 		return targetCUser;
 	}
 
-	public String registerUser(final CUser user) {
+	public CUser registerUser(final CUser user) {
 		if(userExists(user.getUsername())) {
 			throw new BadRequestException("User already exists");
 		}
@@ -60,7 +60,7 @@ public class UserService {
 		val passwd = user.getPassword() + SALT;
 		userRepository.createUser(user.getUsername(), DigestUtils.sha256Hex(passwd));
 
-		return user.getUsername() + " created successfully!";
+		return userMapper.mapToC(userRepository.getUser(user.getUsername()));
 	}
 
 	public User getUser(final String username) {
