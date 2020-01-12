@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
+import {Switch, Route, BrowserRouter as Router, Redirect} from 'react-router-dom';
 import './App.css'
 import IndexRoute from "./routes/IndexRoute";
 import RegistrationRoute from "./routes/RegistrationRoute";
@@ -23,26 +23,21 @@ export default function App() {
         <div className="App">
             <Router>
                 <Switch>
+                    <PrivateRoute path="/my-stories" user={user} Component={MyStoriesRoute}/>
+                    <PrivateRoute path="/logout" user={user} Component={LogoutRoute}/>
+                    <PrivateRoute path="/article/:id/update" Component={ArticleUpdateRoute} user={user}/>
+                    <PrivateRoute path="/create-article" user={user} Component={CreateArticleRoute}/>
+
                     <Route path="/about">
                         <h3>about</h3>
                     </Route>
                     <Route path="/register">
                         <RegistrationRoute/>
                     </Route>
-                    <Route path="/my-stories">
-                        <MyStoriesRoute/>
-                    </Route>
                     <Route path="/login">
                         <LoginRoute/>
                     </Route>
-                    <Route path="/logout">
-                        <LogoutRoute/>
-                    </Route>
-                    <Route path="/article/:id/update" component={ArticleUpdateRoute}/>
-                    <Route path="/article/:id" component={ArticleDetailRoute}/>
-                    <Route path="/create-article">
-                            <CreateArticleRoute/>
-                    </Route>
+                    <Route path="/article/:id" Component={ArticleDetailRoute}/>
                     <Route exact path="/">
                         <IndexRoute/>
                     </Route>
@@ -52,6 +47,15 @@ export default function App() {
     );
 };
 
+function PrivateRoute({ Component, user, ...rest }: any){
+    return(
+        <Route {...rest} render={(props) => (
+            Object.keys(user).length !== 0
+                ? <Component {...props} />
+                : <Redirect to='/login' />
+        )} />
+    )
+}
 
 /*
 * TODO: IMPORTANT
