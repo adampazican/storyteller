@@ -56,9 +56,8 @@ export default function App() {
 /*
 * TODO: IMPORTANT
 *  - PAGINATOR
-*  - RESPONSIVE MENU BUTTON
 *
 *  - ROUTE RESTRICTION FRONTEND
 *  - SERVER: on index return built version of frontend
-*  - change púassword? user profile?
+*  - change password? user profile?
 * */
