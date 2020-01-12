@@ -3,7 +3,7 @@ import {HttpMethod} from "./useFetchData";
 
 export default function(path: string, { onSuccessCallback, token, method, defaultState }: { onSuccessCallback?: any, token?: string, method?: HttpMethod, defaultState?: any }) {
     const [formFields, setFormFields] = useState({});
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState(false);
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -31,17 +31,15 @@ export default function(path: string, { onSuccessCallback, token, method, defaul
         if(response.ok) {
             const data = await response.json();
             if(onSuccessCallback) {
-                console.log(data);
                 onSuccessCallback(data);
             }
         }
         else {
-            setErrorMessage(response.statusText);
+            setErrorMessage(true);
         }
     };
 
     const handleChange = (event: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setErrorMessage("");
         const target:any = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;

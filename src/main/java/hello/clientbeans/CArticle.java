@@ -18,7 +18,7 @@ public class CArticle {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private Date date;
 	@NotBlank
-	@Size(min = 8, max = 28, message = "Required number of characters is between 8 and 28")
+	@Size(min = 8, max = 256, message = "Required number of characters is between 8 and 28")
 	private String title;
 	@NotBlank
 	@Size(min = 20, max = 20000, message = "Required number of characters is between 8 and 28")

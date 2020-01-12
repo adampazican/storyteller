@@ -8,6 +8,7 @@ import {useHistory} from "react-router";
 
 export default () => {
     const history = useHistory();
+    //eslint-disable-next-line
     const [_, setUser] = useContext(UserContext);
     const {handleSubmit, handleChange, errorMessage} = useForm("/login", { onSuccessCallback: (newUser: User) => {
         setUser(newUser);
@@ -19,7 +20,7 @@ export default () => {
         <div className="form-container">
             <Header/>
             <form onSubmit={handleSubmit}>
-                {errorMessage !== "" && <p className="error">Zle meno alebo heslo</p>}
+                {errorMessage && <p className="error">Zle meno alebo heslo</p>}
                 <p>Login</p>
                 <input className="form-element" type="text" name="username" placeholder="username" onChange={handleChange} autoFocus minLength={3} maxLength={20}/>
                 <input className="form-element" type="password" name="password" placeholder="password" onChange={handleChange} minLength={5} maxLength={28}/>

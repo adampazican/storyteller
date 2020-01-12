@@ -29,12 +29,12 @@ function Menu (props: any) {
         <div id="menu">
             {Object.keys(props.user).length === 0?
                 <div className="menu-items">
-                    {props.user.username}
+                    <span>{props.user.username}</span>
                     <Link to="/register">Register</Link>
                     <Link to="/login">Login</Link>
                 </div> :
                 <div className="menu-items">
-                    {props.user.username}
+                    <span>{props.user.username}</span>
                     <Link to="/create-article">Novy pribeh</Link>
                     <Link to="/my-stories">Moje pribehy</Link>
                     <Link to="/logout">Odhlásiť</Link>
@@ -54,12 +54,10 @@ function MobileMenu(props: any){
             <ul>
             {Object.keys(props.user).length === 0?
                 <div>
-                    {props.user.username}
                     <li><Link to="/register">Register</Link></li>
                     <li><Link to="/login">Login</Link></li>
                 </div> :
                 <div>
-                    {props.user.username}
                     <li><Link to="/create-article">Novy pribeh</Link></li>
                     <li><Link to="/my-stories">Moje pribehy</Link></li>
                     <li><Link to="/logout">Odhlásiť</Link></li>

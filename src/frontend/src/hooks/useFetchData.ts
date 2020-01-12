@@ -31,7 +31,7 @@ export default function (path: String, defaultState:any, init?: RequestInit) {
 
         return () => {
         }
-    }, [init, path, defaultState, fetchedData, history]);
+    }, [init, path, fetchedData, history, guard]);
 
     return [fetchedData, setFetchedData];
 }

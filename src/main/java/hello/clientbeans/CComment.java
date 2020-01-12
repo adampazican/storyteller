@@ -17,7 +17,7 @@ public class CComment {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	private String username;
 	@NotBlank
-	@Size(min = 20, max = 200, message = "Required number of params is between 3 and 20")
+	@Size(min = 5, max = 200, message = "Required number of params is between 3 and 20")
 	private String body;
 	@NotNull
 	private int articleId;
